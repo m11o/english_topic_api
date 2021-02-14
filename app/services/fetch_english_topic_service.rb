@@ -18,10 +18,7 @@ class FetchEnglishTopicService
 
   def call!
     create_category!
-
-    Category.all.find_each do |category|
-      create_topics! category
-    end
+    Category.all.find_each { |category| create_topics! category }
   end
 
   def create_category!
