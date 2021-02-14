@@ -11,3 +11,18 @@ create_table :topics, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
 
   t.timestamps null: false
 end
+
+create_table :topic_histories, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
+  t.integer  :topic_id, null: false
+  t.integer  :user_id, null: false
+  t.text     :content, null: false
+  t.datetime :written_at, null: false
+
+  t.timestamps null: false
+end
+
+create_table :users, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
+  t.integer  :mac_address, null: false
+
+  t.timestamps null: false
+end
