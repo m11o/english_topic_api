@@ -19,15 +19,8 @@ class FetchEnglishTopicService
   def call!
     create_category!
 
-    sleep SLEEP_TIME
-
     Category.all.find_each do |category|
-      doc = Nokogiri::HTML(URI.open(category.url))
-
-      doc.css(TOPIC_SELECTOR).each do |link|
-        topic = category.topics.find_or_initialize_by name: link.children.first.text
-        topic.save!
-      end
+      create_topics! category
     end
   end
 
@@ -38,5 +31,18 @@ class FetchEnglishTopicService
       category.url = FETCH_URL + link[:href]
       category.save!
     end
+
+    sleep SLEEP_TIME
+  end
+
+  def create_topics!(category)
+    doc = Nokogiri::HTML(URI.open(category.url))
+
+    doc.css(TOPIC_SELECTOR).each do |link|
+      topic = category.topics.find_or_initialize_by name: link.children.first.text
+      topic.save!
+    end
+
+    sleep SLEEP_TIME
   end
 end
