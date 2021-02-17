@@ -18,7 +18,13 @@ class FetchEnglishTopicService
 
   def call!
     create_category!
-    Category.all.find_each { |category| create_topics! category }
+    Category.all.find_each do |category|
+      create_topics! category
+    rescue => e
+      Rails.logger.error e
+      Rails.logger.error e.backtrace.join("\n")
+      next
+    end
   end
 
   def create_category!
