@@ -24,7 +24,7 @@ class FetchEnglishTopicService
   def create_category!
     doc = Nokogiri::HTML(URI.open(FETCH_URL))
     doc.css(CATEGORY_SELECTOR).each do |link|
-      category = Category.find_or_initialize_by name: link.text
+      category = Category.find_or_initialize_by name: link.text.chomp
       category.url = FETCH_URL + link[:href]
       category.save!
     end
@@ -36,7 +36,7 @@ class FetchEnglishTopicService
     doc = Nokogiri::HTML(URI.open(category.url))
 
     doc.css(TOPIC_SELECTOR).each do |link|
-      topic = category.topics.find_or_initialize_by name: link.children.first.text
+      topic = category.topics.find_or_initialize_by name: link.children.first.text.chomp
       topic.save!
     end
 
