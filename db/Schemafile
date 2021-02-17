@@ -7,7 +7,7 @@ end
 
 create_table :topics, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
   t.integer  :category_id, null: false
-  t.string   :name, null: false
+  t.text     :name, null: false
 
   t.timestamps null: false
 end
@@ -22,7 +22,9 @@ create_table :topic_histories, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' 
 end
 
 create_table :users, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
-  t.integer  :mac_address, null: false
+  t.integer  :code, null: false
 
   t.timestamps null: false
+
+  t.index :code, unique: true
 end
