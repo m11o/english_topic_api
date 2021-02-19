@@ -22,7 +22,7 @@ create_table :topic_histories, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' 
 end
 
 create_table :users, options: 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4' do |t|
-  t.integer  :code, null: false
+  t.string   :code, null: false
 
   t.timestamps null: false
 
